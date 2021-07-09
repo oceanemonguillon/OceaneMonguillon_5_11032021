@@ -1,0 +1,39 @@
+/**------- KEYFRAMES ----------**/
+
+@keyframes loader{
+    0% {
+        top:0;
+        opacity: 1;
+    }
+    50% {
+        top:0;
+        opacity: 1;
+    }
+    99%{
+        top: 0;
+        opacity: 0;
+    }
+    100%{
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+
+@keyframes loader-spin{
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes apparition {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}

@@ -1,0 +1,220 @@
+/**------- KEYFRAMES ----------**/
+@-webkit-keyframes loader {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  50% {
+    top: 0;
+    opacity: 1;
+  }
+  99% {
+    top: 0;
+    opacity: 0;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+@keyframes loader {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  50% {
+    top: 0;
+    opacity: 1;
+  }
+  99% {
+    top: 0;
+    opacity: 0;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes loader-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes apparition {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+header {
+  background-color: #f3e9f1;
+}
+
+header .logo {
+  width: 150px;
+  height: auto;
+  margin-right: 3em;
+}
+
+body {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.presentation {
+  width: 100%;
+  height: auto;
+}
+
+.presentation p {
+  width: 100%;
+}
+
+.presentation strong {
+  font-weight: bold;
+  color: red;
+}
+
+.list {
+  background-color: #f3e9f1;
+}
+
+.list-group-item:hover {
+  background-color: #f3e9f1;
+}
+
+.list-group-item img {
+  width: 300px;
+  height: auto;
+  float: left;
+  margin-right: 2em;
+}
+
+@media screen and (max-width: 768px) {
+  .list-group-item img {
+    display: block;
+    margin: auto;
+    float: none;
+  }
+}
+
+.list-group-item a {
+  color: black;
+}
+
+.list-group-item .price {
+  color: red;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.list-group-item .description {
+  font-style: italic;
+}
+
+/** LOADING SPINNER **/
+.loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: auto;
+  background-color: #f3e9f1;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  -webkit-animation: loader 2500ms;
+          animation: loader 2500ms;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.loader .fa-sync-alt {
+  font-size: 8em;
+  color: purple;
+  -webkit-animation: loader-spin 1000ms linear infinite;
+          animation: loader-spin 1000ms linear infinite;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+footer {
+  background-color: #f3e9f1;
+}
+
+footer h3 {
+  color: black;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
+}
+
+footer p {
+  color: black;
+}
+
+footer span {
+  color: black;
+}
+/*# sourceMappingURL=style.css.map */

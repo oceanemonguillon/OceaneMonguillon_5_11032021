@@ -1,0 +1,63 @@
+.presentation{
+    width: 100%;
+    height: auto;
+    p{
+        width: 100%;
+    }
+    strong{
+        font-weight: bold;
+        color: red;
+    }
+}
+.list{
+    background-color: $primary;
+    &-group-item{
+        &:hover{
+            background-color: $primary;
+        }
+        img{
+            width: 300px;
+            height: auto;
+            float: left;
+            margin-right: 2em;
+            @media screen and (max-width: 768px) {
+                display: block;
+                margin: auto;
+                float: none;
+            }
+        }
+        a{
+            color: black;
+        }
+        .price{
+            color: red;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .description{
+            font-style: italic;
+        }
+    }
+}
+
+/** LOADING SPINNER **/
+
+.loader{
+    @include box (row, center, center, center)
+    background-color: $primary;
+    z-index: 2;
+    top:0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    animation: loader 2500ms;
+    animation-fill-mode: forwards;
+
+    .fa-sync-alt{
+        font-size: 8em;
+        color: purple;
+        animation: loader-spin 1000ms linear infinite;
+        animation-fill-mode: forwards;
+    }
+}
