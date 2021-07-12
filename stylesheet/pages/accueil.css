@@ -1,0 +1,116 @@
+.presentation {
+  width: 100%;
+  height: auto;
+}
+
+.presentation p {
+  width: 100%;
+}
+
+.presentation strong {
+  font-weight: bold;
+  color: red;
+}
+
+.list {
+  background-color: #f3e9f1;
+}
+
+.list-group-item:hover {
+  background-color: #f3e9f1;
+}
+
+.list-group-item img {
+  width: 300px;
+  height: auto;
+  float: left;
+  margin-right: 2em;
+}
+
+@media screen and (max-width: 768px) {
+  .list-group-item img {
+    display: block;
+    margin: auto;
+    float: none;
+  }
+}
+
+.list-group-item a {
+  color: black;
+}
+
+.list-group-item .price {
+  color: red;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.list-group-item .description {
+  font-style: italic;
+}
+
+#ficheProduit {
+  text-align: center;
+}
+
+#ficheProduit img {
+  width: 50%;
+  height: auto;
+  margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  #ficheProduit img {
+    width: 70%;
+    height: auto;
+    margin: auto;
+  }
+}
+
+#ficheProduit .price {
+  color: red;
+  font-weight: bold;
+  font-size: 2em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+#ficheProduit .description {
+  font-style: italic;
+  margin-bottom: 2em;
+}
+
+#ficheProduit select {
+  width: 30%;
+  margin: auto;
+  margin-bottom: 2em;
+}
+
+#ficheProduit button {
+  margin-bottom: 2em;
+}
+
+/** LOADING SPINNER **/
+.loader {
+  background-color: #f3e9f1;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  -webkit-animation: loader 2500ms;
+          animation: loader 2500ms;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.loader .fa-sync-alt {
+  font-size: 8em;
+  color: purple;
+  -webkit-animation: loader-spin 1000ms linear infinite;
+          animation: loader-spin 1000ms linear infinite;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+/*# sourceMappingURL=accueil.css.map */

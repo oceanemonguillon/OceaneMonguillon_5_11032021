@@ -10,10 +10,10 @@
     }
 }
 .list{
-    background-color: $primary;
+    background-color: #f3e9f1;
     &-group-item{
         &:hover{
-            background-color: $primary;
+            background-color: #f3e9f1;
         }
         img{
             width: 300px;
@@ -40,13 +40,53 @@
     }
 }
 
+#ficheProduit{
+    text-align: center;
+    h2{
+        margin-top: 1em;
+        margin-bottom: 1em;
+        font-size: 3em;
+    }
+    img{
+        width: 50%;
+        height: auto;
+        margin: auto;
+        @media screen and (max-width: 768px) {
+            width: 70%;
+            height: auto;
+            margin: auto;
+
+        }
+    }
+
+    .price{
+        color: red;
+        font-weight: bold;
+        font-size: 2em;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+    .description{
+        font-style: italic;
+        margin-bottom: 2em;
+    }
+    select{
+        width: 30%;
+        margin: auto;
+        margin-bottom: 2em;
+    }
+    button{
+        margin-bottom: 2em;
+    }
+}
+
 /** LOADING SPINNER **/
 
 .loader{
-    @include box (row, center, center, center)
-    background-color: $primary;
+    @include box (row, center, center, center);
+    background-color: #f3e9f1;
     z-index: 2;
-    top:0;
+    top: 0;
     left: 0;
     bottom: 0;
     right: 0;
