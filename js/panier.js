@@ -67,7 +67,7 @@ function recuperationProduitPanier(i) {
     //Attribution d'une fonction au bouton bouttonSuprimer
     bouttonSuprimer.addEventListener("click", function(i){annulerArticle(i);})
 
-    bouttonModifierQuantité.addEventListener("click", () => {modifierQuantité();})
+    bouttonModifierQuantité.addEventListener("click", (event) => {modifierQuantité(event);})
 }
   
 function panier() {
@@ -88,15 +88,23 @@ function prixTotal() {
 }
 
 
-function modifierQuantité() {
-  const input = document.getElementsByClassName('input')
-  input.value = localStorage.getItem("panier"); // get and assign the value outside 
-  input.onchange = function(){
-    const value = input.value;
-    localStorage.setItem('panier', value);
-  };
-    window.location.reload();
-    alert("Quantité modifiée !");
+function modifierQuantité(event) {
+  //Sélectionner le bouton puis la carte à laquelle il appartient
+  let ficheDuProduit = event.target.parentNode.parentNode.parentNode;
+  //Identifier l'item associé dans le local storage
+  let idDuProduit = ficheDuProduit.getAttribute("bear-id");
+  let couleurDuProduit = ficheDuProduit.getAttribute("bear-color");
+  let IndexProduitPanier;
+  for (let i = 0; i < produitsPanier.length; i++) {
+    if (idDuProduit === produitsPanier[i]._id && couleurDuProduit === produitsPanier[i].selectionCouleur) {
+      IndexProduitPanier = i;
+    }
+  }
+  //Modifier la quantité dans le local storage
+  produitsPanier[IndexProduitPanier].selectionQuantité = event.target.previousSibling.value;
+  localStorage.setItem("panier", (JSON.stringify(produitsPanier)));
+  window.location.reload();
+  alert("Quantité modifiée !");
 }
 
 //Fonction supprimer un article
