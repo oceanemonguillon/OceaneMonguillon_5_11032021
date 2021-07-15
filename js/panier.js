@@ -22,6 +22,7 @@ function recuperationProduitPanier(i) {
     IDproduits.push(produitsPanier[i]._id);
     // Création des éléments composants chaque produit
     let produitPanier = document.createElement('li');
+    let nombreOurs = document.createElement("span");
     let img = document.createElement('img');
     let spanNom = document.createElement('span');
     let spanPrix = document.createElement('span');
@@ -35,7 +36,7 @@ function recuperationProduitPanier(i) {
 
     //Ajoute des classes à l'élément parent <li>
     produitPanier.classList.add("list-group-item", "flex-column", "align-item-start"); 
-    bouttonSuprimer.classList.add("btn", "btn-danger", "mt-3", "boutton-suprimer");
+    bouttonSuprimer.classList.add("btn", "btn-danger", "mt-3", "boutton-suprimer", "float-right");
     bouttonModifierQuantité.classList.add("btn", "btn-primary", "boutton-quantité");
     selectionQuantité.classList.add("input");
     //Définit la source des images de chaque produit  
@@ -43,6 +44,7 @@ function recuperationProduitPanier(i) {
     
     //Ajoute des balises HTML à la page index avec le contenu choisi
     spanNom.innerHTML = `<h3> ${produitsPanier[i].name}</h3>`;
+    nombreOurs.innerHTML = `<p> quantité: ${produitsPanier[i].selectionQuantité}</p>`;
     spanPrix.innerHTML = `<p class="price">Prix : ${produitsPanier[i].price * produitsPanier[i].selectionQuantité / 100} €</p>`;
     lienPageProduit.innerHTML = `<p> voir la fiche du produit</p>`;
     lienPageProduit.setAttribute('href', urlPage);
@@ -54,6 +56,7 @@ function recuperationProduitPanier(i) {
     produitPanier.appendChild(img);
     produitPanier.appendChild(spanNom);
     produitPanier.appendChild(selectionCouleur);
+    produitPanier.appendChild(nombreOurs);
     produitPanier.appendChild(spanPrix);
     produitPanier.appendChild(lienPageProduit);
     produitPanier.appendChild(quantité);
@@ -66,8 +69,8 @@ function recuperationProduitPanier(i) {
 
     //Attribution d'une fonction au bouton bouttonSuprimer
     bouttonSuprimer.addEventListener("click", function(i){annulerArticle(i);})
-
-    bouttonModifierQuantité.addEventListener("click", (event) => {modifierQuantité(event);})
+    //Attribution d'une fonction au bouton bouttonModifierQuantité
+    bouttonModifierQuantité.addEventListener("click", function(){modifierQuantité();})
 }
   
 function panier() {
@@ -88,21 +91,16 @@ function prixTotal() {
 }
 
 
-function modifierQuantité(event) {
-  //Sélectionner le bouton puis la carte à laquelle il appartient
-  let ficheDuProduit = event.target.parentNode.parentNode.parentNode;
-  //Identifier l'item associé dans le local storage
-  let idDuProduit = ficheDuProduit.getAttribute("bear-id");
-  let couleurDuProduit = ficheDuProduit.getAttribute("bear-color");
-  let IndexProduitPanier;
-  for (let i = 0; i < produitsPanier.length; i++) {
-    if (idDuProduit === produitsPanier[i]._id && couleurDuProduit === produitsPanier[i].selectionCouleur) {
-      IndexProduitPanier = i;
-    }
+function modifierQuantité() {
+  localStorage.getItem("panier");
+  let qty = localStorage.getItem("selectionQuantity");
+  console.log(qty);
+  let input = document.getElementsByClassName("input");
+  if(input != qty){
+    localStorage.clear();
+  }else{
+    console.log("err");
   }
-  //Modifier la quantité dans le local storage
-  produitsPanier[IndexProduitPanier].selectionQuantité = event.target.previousSibling.value;
-  localStorage.setItem("panier", (JSON.stringify(produitsPanier)));
   window.location.reload();
   alert("Quantité modifiée !");
 }
