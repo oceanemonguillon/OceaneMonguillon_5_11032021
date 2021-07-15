@@ -29,7 +29,7 @@ function recuperationProduitPanier(i) {
     let urlPage = "../html/produits.html?id=" + produitsPanier[i]._id;
     let selectionCouleur = document.createElement("span");
     let quantité = document.createElement("div");
-    let selectionQuantité = document.createElement("select");
+    let selectionQuantité = document.createElement("input");
     let bouttonModifierQuantité = document.createElement("button");
     let bouttonSuprimer = document.createElement("button");
 
@@ -37,6 +37,7 @@ function recuperationProduitPanier(i) {
     produitPanier.classList.add("list-group-item", "flex-column", "align-item-start"); 
     bouttonSuprimer.classList.add("btn", "btn-danger", "mt-3", "boutton-suprimer");
     bouttonModifierQuantité.classList.add("btn", "btn-primary", "boutton-quantité");
+    selectionQuantité.classList.add("input");
     //Définit la source des images de chaque produit  
     img.src = produitsPanier[i].imageUrl;
     
@@ -46,7 +47,6 @@ function recuperationProduitPanier(i) {
     lienPageProduit.innerHTML = `<p> voir la fiche du produit</p>`;
     lienPageProduit.setAttribute('href', urlPage);
     bouttonModifierQuantité.innerText = "Modifier la quantité";
-    selectionQuantité.innerHTML=`<option value="1">1</option> <option value="2">2</option> <option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>`;
     bouttonSuprimer.innerText = "Supprimer l'article";
     selectionCouleur.innerHTML = `<p> Vous avez choisi la couleur: ${produitsPanier[i].selectionCouleur}</p>`;
 
@@ -67,7 +67,7 @@ function recuperationProduitPanier(i) {
     //Attribution d'une fonction au bouton bouttonSuprimer
     bouttonSuprimer.addEventListener("click", function(i){annulerArticle(i);})
 
-    bouttonModifierQuantité.addEventListener("click", (event) => {modifierQuantité(event);})
+    bouttonModifierQuantité.addEventListener("click", () => {modifierQuantité();})
 }
   
 function panier() {
@@ -83,33 +83,23 @@ function prixTotal() {
       total = total + (produitsPanier[j].price * produitsPanier[j].selectionQuantité);
     }
     let prixTotalPanier= document.createElement('span');
-    prixTotalPanier.innerHTML= `<p> Total : ${total / 100}</p>`;
+    prixTotalPanier.innerHTML= `<p> Total : ${total / 100} €</p>`;
+    document.querySelector("#totalPanier").appendChild(prixTotalPanier);
 }
 
 
-function modifierQuantité(event) {
-    //Sélectionner le bouton puis la carte à laquelle il appartient
-    let carteProduit = event.target.parentNode.parentNode.parentNode;
-    //Identifier l'item associé dans le local storage
-    let idProduit = carteProduit.getAttribute("data-id");
-    let couleurProduit = carteProduit.getAttribute("data-color");
-    for (let i = 0; i < produitsPanier.length; i++) {
-      if (idProduit === produitsPanier[i]._id && couleurProduit === produitsPanier[i].selectionCouleur) {
-        produitPanierIndex = i;
-      }
-    }
-    console.log(event);
-    console.log(idProduit);
-    console.log(couleurProduit);
-    //Modifier la quantité dans le local storage
-    produitsPanier[produitPanierIndex].selectionQuantité = event.target.previousSibling.value;
-    // Mise à jour du nouveau panier avec suppression de l'article
-    localStorage.setItem("panier", (JSON.stringify(produitsPanier)));
-    //Mise à jour de la page pour affichage de la suppression au client
+function modifierQuantité() {
+  const input = document.getElementsByClassName('input')
+  input.value = localStorage.getItem("panier"); // get and assign the value outside 
+  input.onchange = function(){
+    const value = input.value;
+    localStorage.setItem('panier', value);
+  };
     window.location.reload();
     alert("Quantité modifiée !");
 }
 
+//Fonction supprimer un article
 function annulerArticle(i){
   produitsPanier.splice(i, 1);
    localStorage.clear();

@@ -18,14 +18,14 @@ function affichageFicheProduit(bear) {
     let selectionCouleur = document.createElement("select");
     let bouttonPanier = document.createElement('div');
     let quantité = document.createElement("div");
-    let selectionQuantité = document.createElement("select");
+    let selectionQuantité = document.createElement("input");
 
 
     //Ajoute des classes à l'élément parent ciblé
     div.classList.add("card");
     img.classList.add("card-img-top");
     Nom.classList.add("card-title");
-
+    selectionQuantité.classList.add("input");
     //Définit la source des images de chaque produit  
     img.src = bear.imageUrl;
 
@@ -34,7 +34,6 @@ function affichageFicheProduit(bear) {
     spanPrix.innerHTML = `<p class="price card-text">Prix : ${bear.price/ 100} €</p>`;
     spanDescription.innerHTML = `<p class="description card-text">Description de l'article : ${bear.description} </p>`;
     quantité.innerText = "Combien en voulez-vous?  : ";
-    selectionQuantité.innerHTML=`<option value="1">1</option> <option value="2">2</option> <option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>`;
     bouttonPanier.innerHTML = `<button id="ajouterAuPanier" class="btn btn-primary mt-3" type="button"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>`;
     for (i = 0; i < bear.colors.length; i++) {
       let option = document.createElement("option");
@@ -76,7 +75,7 @@ function ajouterAuPanier(bear) {
     }
     //Récupérer les informations sur les oursons
     bear.selectionCouleur = document.querySelector("option:checked").innerText;
-    bear.selectionQuantité = document.querySelector("option:checked").value;
+    bear.selectionQuantité = document.querySelector("input").value;
     delete bear.colors;
     //création d'une variable pour manipuler le panier
     let panier = JSON.parse(localStorage.getItem("panier"));
