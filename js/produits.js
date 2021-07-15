@@ -25,7 +25,7 @@ function affichageFicheProduit(bear) {
     div.classList.add("card");
     img.classList.add("card-img-top");
     Nom.classList.add("card-title");
-    selectionQuantité.classList.add("input");
+    selectionQuantité.classList.add("selectNb");
     //Définit la source des images de chaque produit  
     img.src = bear.imageUrl;
 
@@ -66,40 +66,39 @@ function recuperationOurson(id) {
         console.log("ca marche 3");
     })
 }
-  
+
 function ajouterAuPanier(bear) {
-    //Création du panier dans le localStorage s'il n'existe pas déjà
-    if (typeof localStorage.getItem("panier") !== "string") {
-      let panier = [];
-      localStorage.setItem("panier", JSON.stringify(panier));
+  //Création du panier dans le localStorage s'il n'existe pas déjà
+  if (typeof localStorage.getItem("panier") !== "string") {
+    let panier = [];
+    localStorage.setItem("panier", JSON.stringify(panier));
+  }
+  //Récupérer les informations sur les oursons
+  bear.selectionCouleur = document.querySelector("option:checked").innerText;
+  bear.selectionQuantité = document.querySelector("input").value;
+  delete bear.colors;
+  //création d'une variable pour manipuler le panier
+  let panier = JSON.parse(localStorage.getItem("panier"));
+  //Vérification que l'ourson n'est pas déjà dans le panier
+  let produitCree = false;
+  let produitExistant;
+  for (let i = 0; i < panier.length; i++) {
+    if (bear._id === panier[i]._id && bear.price === panier[i].price && bear.selectionCouleur=== panier[i].selectionCouleur) {
+      produitCree = true;
+      produitExistant = panier[i];
     }
-    //Récupérer les informations sur les oursons
-    bear.selectionCouleur = document.querySelector("option:checked").innerText;
-    bear.selectionQuantité = document.querySelector("input").value;
-    delete bear.colors;
-    //création d'une variable pour manipuler le panier
-    let panier = JSON.parse(localStorage.getItem("panier"));
-    //Vérification que l'ourson n'est pas déjà dans le panier
-    let produitCree = false;
-    let produitExistant;
-    for (let i = 0; i < panier.length; i++) {
-      if (bear._id === panier[i]._id && bear.price === panier[i].price && bear.selectcolor === panier[i].selectcolor) {
-        produitCree = true;
-        produitExistant = panier[i];
-      }
-    }
-    //Ajout de l'ourson selectioné au panier
-    if (produitCree === false) {
-      panier.push(bear);
-      localStorage.setItem("panier", JSON.stringify(panier));
-    } else {
-      produitExistant.selectionQuantité = parseInt(produitExistant.selectionQuantité, 10) + parseInt(bear.selectionQuantité, 10);
-      localStorage.setItem("panier", JSON.stringify(panier));
-    }
-    creationPanier();
-    alert("Vous avez ajouté ce produit dans votre panier");
+  }
+  //Ajout de l'ourson selectioné au panier
+  if (produitCree === false) {
+    panier.push(bear);
+    localStorage.setItem("panier", JSON.stringify(panier));
+  } else {
+    produitExistant.selectionQuantité = parseInt(produitExistant.selectionQuantité, 10) + parseInt(bear.selectionQuantité, 10);
+    localStorage.setItem("panier", JSON.stringify(panier));
+  }
+  creationPanier();
+  alert("Vous avez ajouté ce produit dans votre panier");
 }
-  
 let params = (new URL(document.location)).searchParams;
 let id = params.get("id");
 
