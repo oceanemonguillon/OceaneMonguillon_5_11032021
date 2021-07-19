@@ -2,11 +2,13 @@ let produitsPanier = JSON.parse(localStorage.getItem("panier"));
 let IDproduits = [];
 
 function creationPanier() {
-    //Vérifier si le panier contient un ourson (ou +)
+  let lien = document.querySelector("#pagePanier");
+  //Vérifier si le panier contient un ourson (ou +)
   if (localStorage.getItem("panier") === null || localStorage.getItem("panier") === "[]") {
-    document.querySelector("#pagePanier").parentNode.hidden = true;
+    lien.setAttribute("href","#");
   } else {
-    document.querySelector("#pagePanier").parentNode.hidden = false;
+    lien.setAttribute("href", "panier.html");
+    lien.classList.add("text-dark");
   }
 }
 
@@ -30,7 +32,6 @@ function recuperationProduitPanier(i) {
     let urlPage = "../html/produits.html?id=" + produitsPanier[i]._id;
     let selectionCouleur = document.createElement("span");
     let quantité = document.createElement("div");
-    let selectionQuantité = document.createElement("input");
     let bouttonModifierQuantité = document.createElement("button");
     let bouttonSuprimer = document.createElement("button");
 
@@ -38,14 +39,14 @@ function recuperationProduitPanier(i) {
     produitPanier.classList.add("list-group-item", "flex-column", "align-item-start"); 
     bouttonSuprimer.classList.add("btn", "btn-danger", "mt-3", "boutton-suprimer", "float-right");
     bouttonModifierQuantité.classList.add("btn", "btn-primary", "boutton-quantité");
-    selectionQuantité.classList.add("input");
     //Définit la source des images de chaque produit  
     img.src = produitsPanier[i].imageUrl;
     
     //Ajoute des balises HTML à la page index avec le contenu choisi
     spanNom.innerHTML = `<h3> ${produitsPanier[i].name}</h3>`;
-    nombreOurs.innerHTML = `<p> quantité: ${produitsPanier[i].selectionQuantité}</p>`;
-    spanPrix.innerHTML = `<p class="price">Prix : ${produitsPanier[i].price * produitsPanier[i].selectionQuantité / 100} €</p>`;
+    quantité.innerHTML = `<label for="quantité"> Combien en voulez-vous finalement? (1 à 10):</label> <input type="number" id="quantiteOurs" name="quantité" min="1" max="10" value="1">`;
+    nombreOurs.innerHTML = `<p> quantité: ${produitsPanier[i].quantité}</p>`;
+    spanPrix.innerHTML = `<p class="price">Prix : ${produitsPanier[i].price * produitsPanier[i].quantité / 100} €</p>`;
     lienPageProduit.innerHTML = `<p> voir la fiche du produit</p>`;
     lienPageProduit.setAttribute('href', urlPage);
     bouttonModifierQuantité.innerText = "Modifier la quantité";
@@ -60,7 +61,6 @@ function recuperationProduitPanier(i) {
     produitPanier.appendChild(spanPrix);
     produitPanier.appendChild(lienPageProduit);
     produitPanier.appendChild(quantité);
-    quantité.appendChild(selectionQuantité);
     quantité.appendChild(bouttonModifierQuantité);
     produitPanier.appendChild(bouttonSuprimer);
     
@@ -83,26 +83,26 @@ function panier() {
 function prixTotal() {
     let total = 0;
     for (let j = 0; j < produitsPanier.length; j++) {
-      total = total + (produitsPanier[j].price * produitsPanier[j].selectionQuantité);
+      total = total + (produitsPanier[j].price * produitsPanier[j].quantité);
     }
     let prixTotalPanier= document.createElement('span');
     prixTotalPanier.innerHTML= `<p> Total : ${total / 100} €</p>`;
     document.querySelector("#totalPanier").appendChild(prixTotalPanier);
 }
 
-
-function modifierQuantité() {
-  localStorage.getItem("panier");
-  let qty = localStorage.getItem("selectionQuantity");
-  console.log(qty);
-  let input = document.getElementsByClassName("input");
-  if(input != qty){
-    localStorage.clear();
-  }else{
-    console.log("err");
+//Fonction pour modifier la quantité d'oursons achetée
+function modifierQuantité(){
+  let quantité = localStorage.getItem("panier");
+  console.log(localStorage.getItem("panier"));
+  let nouvelleQuantité = document.getElementById("quantiteOurs").value;
+  console.log(nouvelleQuantité);
+  if(quantité != nouvelleQuantité){
+    localStorage.setItem("quantité", "nouvelleQuantité");
+    localStorage.setItem("panier", JSON.stringify(produitsPanier));
+    console.log(localStorage.getItem('panier'));
+    window.location.reload();
+   
   }
-  window.location.reload();
-  alert("Quantité modifiée !");
 }
 
 //Fonction supprimer un article
@@ -116,8 +116,6 @@ function annulerArticle(i){
 
    retourPageIndex();
  };  
-  
 
   
-creationPanier();
 panier();

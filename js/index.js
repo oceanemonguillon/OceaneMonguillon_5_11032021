@@ -1,9 +1,11 @@
 function creationPanier() {
+    let lien = document.querySelector("#pagePanier");
     //Vérifier si le panier contient un ourson (ou +)
     if (localStorage.getItem("panier") === null || localStorage.getItem("panier") === "[]") {
-      document.querySelector("#pagePanier").parentNode.hidden = true;//si pannier vide, page "panier" cachée
+      lien.setAttribute("href","#");
     } else {
-      document.querySelector("#pagePanier").parentNode.hidden = false;//si pannier contien au moins 1 ourson, page "panier" visible
+      lien.setAttribute("href", "html/panier.html");
+      lien.classList.add("text-info");
     }
 }
 
