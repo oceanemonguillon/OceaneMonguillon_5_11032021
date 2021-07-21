@@ -117,5 +117,108 @@ function annulerArticle(i){
    retourPageIndex();
  };  
 
+ function verificationValiditeChamp(input, regExp) {
+  return input.value.match(regExp) !== null;
+}
+
+
+function envoiFormulairePaiement() {
+  //Si la fonction a déjà été utilisée on réinitialise le formulaire
+  //suppr div
+  //suppr valide/invalide
+  let inputs = document.querySelectorAll("input");
+  for (let i = 0; i < inputs.length ; i++) {
+    inputs[i].classList.remove("invalide");
+    inputs[i].classList.remove("valide");
+  }
+
+  let messagesAlerte = document.querySelectorAll(".messagesAlerte");
+  for (let i = 0; i < messagesAlerte.length ; i++) {
+    messagesAlerte[i].remove();
+  };
+
+  //Récupérer les informations du formulaire
+  var prenom = document.querySelector("#prenom"),
+    nom = document.querySelector("#nom"),
+    addresse = document.querySelector("#addresse"),
+    ville = document.querySelector("#ville"),
+    email = document.querySelector("#email");
+
+  //Définition des expressions régulières pour la vérification de la validité des champs
+  let stringRegExp = /([A-Za-z0-9_\s\-'\u00C0-\u024F]+)/;
+  emailRegExp = /^([\w\-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/i;
+
+  //Vérification de la validité des champs
+  let validitePrenom = verificationValiditeChamp(prenom, stringRegExp),
+  validiteNom= verificationValiditeChamp(nom, stringRegExp);
+  validiteAdresse = verificationValiditeChamp(addresse, stringRegExp);
+  validiteVille = verificationValiditeChamp(ville, stringRegExp);
+  validiteEmail = verificationValiditeChamp(email, emailRegExp);
+
+  //Alerter l'utilisateur s'il a mal rempli le formulaire
+  let champ = [prenom, nom, addresse, ville, email],
+    validiteChamps = [validitePrenom, validiteNom, validiteAdresse, validiteVille, validiteEmail],
+    champInvalide = false;
+
+  for (let i = 0; i < champ.length; i++) {
+    if (!validiteChamps[i]) { //si un champ n'est pas valide
+      champInvalide = true; //un champ au moins est incorrect, sera utilisé plus loin pour empêcher la requête POST à l'API
+
+      //Création du message à envoyer à l'utilisateur
+      let message;
+      if (champ[i] === document.querySelector("#prenom")) {
+        message = "Le prénom est incorrect !";
+      } else if (champ[i] === document.querySelector("#nom")) {
+        message = "Le nom est incorrect !";
+      } else if (champ[i] === document.querySelector("#addresse")) {
+        message = "L'adresse postale est incorrecte !";
+      } else if (champ[i] === document.querySelector("#ville")) {
+        message = "La ville est incorrecte !";
+      } else {
+        message = "L'adresse mail est incorrecte !";
+      }
+
+      //Création et stylisation de l'alerte
+      let alert = document.createElement("div");
+      alert.appendChild(document.createTextNode(message));
+      champ[i].classList.add("is-invalid");
+      alert.classList.add("alertMessages", "invalid-feedback");
+      champ[i].parentElement.appendChild(alert);
+
+    } else {
+      champ[i].classList.add("is-valid");
+    }
+  }
+  //Si l'un des champs a été vidé ...
+  if (champInvalide) return; //la fonction s'arrête 
+  //sinon on continue
+
+  //Les entrer dans un objet
+  let contact = {
+    prenom: prenom.value,
+    nom: nom.value,
+    addresse: addresse.value,
+    ville: ville.value,
+    email: email.value
+  },
+    produits = IDproduits;
+  //Récupérer l'id de la commande
+  fetch('http://localhost:3000/api/teddies/order', {
+    method: 'post',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contact: contact,
+      produits: produits
+    })
+  })
+    .then(response => response.json())
+    .then(commande => {
+      localStorage.setItem("idCommande", commande.idCommande);
+      window.location.href = "../html/order.html";
+    })
+    .catch(error => alert("Un des champ du formulaire n'est pas correct !"));
+}
+
   
 panier();
+document.querySelector("#envoiFormulairePaiement").addEventListener("click", envoiFormulairePaiement, false);

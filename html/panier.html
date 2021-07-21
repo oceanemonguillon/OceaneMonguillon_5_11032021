@@ -20,7 +20,7 @@
     <header>
         <div class="container row">
             <nav class="col navbar navbar-expand-sm navbar-light">
-                <a href="index.html"><img class="navbar-brand logo" src="../images/logo.png" alt="Logo du site Orinoco en noir avec un panier multicolore sur fond rose pale"></a>
+                <a href="../index.html"><img class="navbar-brand logo" src="../images/logo.png" alt="Logo du site Orinoco en noir avec un panier multicolore sur fond rose pale"></a>
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -51,6 +51,35 @@
             </div>
             <div id="totalPanier"></div>
         </section>  
+
+        <div id="payment" class="card border-light text-center w-50 m-auto">
+            <h1 class="card-title">Paiement</h1>
+            <h2 id="total"></h2>
+            <p>Veillez à bien remplir les champs suivants pour pouvoir procéder au paiement :</p>
+            <form class="card-body">
+              <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input type="text" class="form-control" id="prenom" placeholder="ex: Michel" required>
+              </div>
+              <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" class="form-control" id="nom" placeholder="ex: Dupont" required>
+              </div>
+              <div class="form-group">
+                <label for="addresse">Adresse</label>
+                <input type="text" class="form-control" id="addresse" placeholder="ex: 2 rue des lilas" required>
+              </div>
+              <div class="form-group">
+                <label for="ville">Ville</label>
+                <input type="text" class="form-control" id="ville" placeholder="ex: paris" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Adresse mail</label>
+                <input type="email" class="form-control" id="email" placeholder="ex: agence.orinoco@gmail.com" required>
+              </div>
+            </form>
+            <a id="envoiFormulairePaiement" class="btn btn-success card-footer" role="button" type="submit">Envoyer</a>
+          </div>
     </main>
 
     <footer class="text-center text-lg-start text-muted">
