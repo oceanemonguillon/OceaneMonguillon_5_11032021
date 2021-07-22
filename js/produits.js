@@ -61,6 +61,10 @@ function recuperationOurson(id) {
         // Ecouter les clics sur le bouton ajouterAuPanier
         let ajouterProduitPanier = document.querySelector("#ajouterAuPanier");
         ajouterProduitPanier.addEventListener("click", function () {ajouterAuPanier(bear)}, false);
+      })
+      .catch(function(error){ //Message d'erreur en cas de rejet de l'API
+        console.log(error);
+        window.alert("Une erreur est survenue, réessayez plus tard!");
     })
 }
 
@@ -95,6 +99,7 @@ function ajouterAuPanier(bear) {
   creationPanier();
   alert("Vous avez ajouté ce produit dans votre panier");
 }
+
 let params = (new URL(document.location)).searchParams;
 let id = params.get("id");
 
