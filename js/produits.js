@@ -13,26 +13,28 @@ function creationPanier() {
 function affichageFicheProduit(bear) {
     // Création des éléments composants chaque produit
     let div = document.createElement("div");
-    let Nom = document.createElement("h2");
-    let spanPrix = document.createElement("span");
-    let spanDescription = document.createElement("span");
+    let nom = document.createElement("h2");
+    let prix = document.createElement("p");
+    let description = document.createElement("p");
     let img = document.createElement("img");
     let selectionCouleur = document.createElement("select");
     let bouttonPanier = document.createElement('div');
-    let quantité = document.createElement("div");
+    let quantite = document.createElement("div");
 
     //Ajoute des classes à l'élément parent ciblé
     div.classList.add("card");
     img.classList.add("card-img-top");
-    Nom.classList.add("card-title");
+    nom.classList.add("card-title");
+    prix.classList.add("price", "card-text");
+    description.classList.add("description", "card-text");
     //Définit la source des images de chaque produit  
     img.src = bear.imageUrl;
 
     //Ajoute des balises HTML à la page produits avec le contenu choisi
-    Nom.innerText = `${bear.name}`;
-    spanPrix.innerHTML = `<p class="price card-text">Prix : ${bear.price/ 100} €</p>`;
-    spanDescription.innerHTML = `<p class="description card-text">Description de l'article : ${bear.description} </p>`;
-    quantité.innerHTML = `<label for="quantité"> Combien en voulez-vous? (1 à 10):</label> <input type="number" id="quantiteOurs" name="quantité" min="1" max="10" value="1">`;
+    nom.innerText = `${bear.name}`;
+    prix.innerText = `Prix : ${bear.price/ 100} €`;
+    description.innerText = `Description de l'article : ${bear.description}`;
+    quantite.innerHTML = `<label for="quantite"> Combien en voulez-vous? (1 à 10):</label> <input type="number" id="quantiteOurs" name="quantite" min="1" max="10" value="1">`;
     bouttonPanier.innerHTML = `<button id="ajouterAuPanier" class="btn btn-primary mt-3" type="button"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>`;
     for (i = 0; i < bear.colors.length; i++) {
       let option = document.createElement("option");
@@ -41,12 +43,12 @@ function affichageFicheProduit(bear) {
     }
 
    //Ajoute un élément enfant defini à l'élément parent choisi
-    div.appendChild(Nom);
+    div.appendChild(nom);
     div.appendChild(img);
-    div.appendChild(spanPrix);
-    div.appendChild(spanDescription);
+    div.appendChild(prix);
+    div.appendChild(description);
     div.appendChild(selectionCouleur);
-    div.appendChild(quantité);
+    div.appendChild(quantite);
     div.appendChild(bouttonPanier);
     document.getElementById('ficheProduit').appendChild(div);
 }
@@ -76,7 +78,7 @@ function ajouterAuPanier(bear) {
   }
   //Récupérer les informations sur les oursons
   bear.selectionCouleur = document.querySelector("option:checked").innerText;
-  bear.quantité = document.querySelector("input").value;
+  bear.quantite = document.querySelector("input").value;
   //création d'une variable pour manipuler le panier
   let panier = JSON.parse(localStorage.getItem("panier"));
   //Vérification que l'ourson n'est pas déjà dans le panier
@@ -93,7 +95,7 @@ function ajouterAuPanier(bear) {
     panier.push(bear);
     localStorage.setItem("panier", JSON.stringify(panier));
   } else {
-    produitExistant.quantité = parseInt(produitExistant.quantité, 10) + parseInt(bear.quantité, 10);
+    produitExistant.quantite = parseInt(produitExistant.quantite, 10) + parseInt(bear.quantite, 10);
     localStorage.setItem("panier", JSON.stringify(panier));
   }
   creationPanier();

@@ -32,32 +32,34 @@ function affichageProduit(bear) {
     // Création des éléments composants chaque produit
     let li = document.createElement('li');
     let img = document.createElement('img');
-    let spanNom = document.createElement('span');
-    let spanPrix = document.createElement('span');
-    let spanDescription= document.createElement('span');
+    let nom = document.createElement('h3');
+    let prix = document.createElement('p');
+    let description= document.createElement('p');
     let lienPageProduit = document.createElement("a");
     let urlPage = "html/produits.html?id=" + bear._id;
 
 
     //Ajoute des classes à l'élément parent <li>
     li.classList.add("list-group-item", "flex-column", "align-item-start"); 
-    
+    prix.classList.add("price");
+    description.classList.add("description");
+
     //Définit la source des images de chaque produit  
     img.src = bear.imageUrl;
 
     //Ajoute des balises HTML à la page index avec le contenu choisi
-    spanNom.innerHTML = `<h3> ${bear.name}</h3>`;
-    spanPrix.innerHTML = `<p class="price">Prix : ${bear.price/100} €</p>`;
-    spanDescription.innerHTML = `<p class="description">Description de l'article : ${bear.description} </p>`;
+    nom.innerText = `${bear.name}`;
+    prix.innerText = `Prix : ${bear.price/100} €`;
+    description.innerText = `Description de l'article : ${bear.description}`;
     lienPageProduit.innerHTML = `<p> voir la fiche du produit</p>`;
     lienPageProduit.setAttribute('href', urlPage);
 
     
     //Ajoute un élément enfant defini à l'élément parent choisi
     li.appendChild(img);
-    li.appendChild(spanNom);
-    li.appendChild(spanPrix);
-    li.appendChild(spanDescription);
+    li.appendChild(nom);
+    li.appendChild(prix);
+    li.appendChild(description);
     li.appendChild(lienPageProduit);
 
 
