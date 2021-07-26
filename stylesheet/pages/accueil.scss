@@ -93,12 +93,7 @@
 /** LOADING SPINNER **/
 
 .loader{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
-    width: 95%;
-    height: auto;  
+    @include box (row, center, center, center);
     background-color: #f3e9f1;
     z-index: 2;
     top: 0;
