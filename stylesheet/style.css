@@ -203,6 +203,14 @@ h3 {
   margin-bottom: 2em;
 }
 
+#totalPanier p {
+  color: red;
+  font-weight: bold;
+  font-size: 2em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
 /** LOADING SPINNER **/
 .loader {
   display: -webkit-box;
@@ -217,10 +225,7 @@ h3 {
           justify-content: center;
   -ms-flex-line-pack: center;
       align-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
+  width: 95%;
   height: auto;
   background-color: #f3e9f1;
   z-index: 2;

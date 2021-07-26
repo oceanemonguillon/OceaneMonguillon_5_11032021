@@ -53,6 +53,12 @@
   text-align: center;
 }
 
+#ficheProduit h2 {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 3em;
+}
+
 #ficheProduit img {
   width: 50%;
   height: auto;
@@ -90,8 +96,30 @@
   margin-bottom: 2em;
 }
 
+#totalPanier p {
+  color: red;
+  font-weight: bold;
+  font-size: 2em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
 /** LOADING SPINNER **/
 .loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  width: 95%;
+  height: auto;
   background-color: #f3e9f1;
   z-index: 2;
   top: 0;

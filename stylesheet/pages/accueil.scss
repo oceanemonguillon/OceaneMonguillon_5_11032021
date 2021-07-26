@@ -80,10 +80,25 @@
     }
 }
 
+#totalPanier{
+    p{    
+        color: red;
+        font-weight: bold;
+        font-size: 2em;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+}
+
 /** LOADING SPINNER **/
 
 .loader{
-    @include box (row, center, center, center);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    width: 95%;
+    height: auto;  
     background-color: #f3e9f1;
     z-index: 2;
     top: 0;
